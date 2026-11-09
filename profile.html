@@ -4,10 +4,11 @@
     </head>
     <body>
     <title>Hellow from Flask</title>
-        {% if person %}
-        <h1>Hello {{ person }}!</h1>
+        {% if class_name or places %}
+        <h1>класс {{ class_name }}!</h1>
+        <h1>мест в классе{{ places }}!</h1>
         {% else %}
-        <h1>Hello, World!</h1>
+        <h1>{{ error }}</h1>
         {% endif %}
     </body>
 </html>
