@@ -3,6 +3,9 @@ from flask import request
 from markupsafe import escape
 from flask import abort, redirect, url_for
 from flask import render_template
+from 
+
+import database
 
 app = Flask(__name__)
 
@@ -17,8 +20,16 @@ def login_get():
     return render_template('login.html')
 
 def login_post():
-    person = request.form['username']
-    return redirect(url_for('home'))
+    class_name = request.form.get('class_name')
+    places = request.form.get('places')
+    db = insert_classes(class_name, places)
+    db.select_all()
+    error = "недостаточно данных"
+    return render_template('login.html', class_name=class_name, places=places, error=error)
+
+def search(a,b):
+    return a==b
 
 if __name__ == '__main__':
-    app.run()
+    db = Database('localhost', 'root', '<admin>', '<academy>')
+    app.run(host='0.0.0.0', port=8080, debug=True)
