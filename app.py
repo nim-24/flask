@@ -6,5 +6,3 @@ def divide(a,b):
         return ValueError
     else:
         return a/b
-
-  ![Uploading изображение.png…]()
