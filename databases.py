@@ -8,7 +8,7 @@ class Database:
 
     def insert_users(self, login, password):
         cursor = self.connection.cursor()
-        sql = "INSERT INTO users (login, password) VALUES (%s, %s)"
+        sql = "INSERT INTO users (email, password) VALUES (%s, %s)"
         with self.connection.cursor() as cursor:
             cursor.execute(sql, (login, password))
             self.connection.commit()
@@ -30,3 +30,10 @@ class Database:
             for row in classes:
                 print(row)
 
+    def select_users(self, login):
+        cursor = self.connection.cursor()
+        sql = "SELECT * FROM users WHERE login = %s"
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql, login)
+            user = cursor.fetchone()
+            print(user)
