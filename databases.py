@@ -6,6 +6,12 @@ class Database:
 
         self.connection = pymysql.connect(host=host, user=user, password=password, database=database)
 
+    def insert_users(self, login, password):
+        cursor = self.connection.cursor()
+        sql = "INSERT INTO users (login, password) VALUES (%s, %s)"
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql, (login, password))
+            self.connection.commit()
 
     def insert_classes(self, places1, places2):
         cursor = self.connection.cursor()
@@ -23,5 +29,4 @@ class Database:
             classes = cursor.fetchall()
             for row in classes:
                 print(row)
-
 
