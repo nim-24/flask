@@ -24,6 +24,8 @@ def register():
 def register_post():
     reg_email = request.form['reg_email']
     reg_password = request.form['reg_pass']
+    db.insert_users(reg_email, reg_password)
+    return render_template('profile.html')
 
 def register_get():
     return render_template('register.html')
@@ -40,15 +42,32 @@ def login_get():
     return render_template('login.html')
 
 def login_post():
-    class_name = request.form.get['class_name']
-    places = request.form.get['places']
-    db = insert_classes(class_name, places)
-    db.select_all()
-    error = "недостаточно данных"
-    return render_template('login.html', class_name=class_name, places=places, error=error)
+    user_login = request.form('log_name')
+    user_password = request.form ('log_pass')
+    data = select_users(user_login)
+    valid_password = data['password']
+    error = "неверные данные или пароль"
+    message = "добро пожаловать"
+    if user_password == valid_password:
+        return render_template('login.html')
+    else:
+        return redirect(url_for('login'))
 
-def search(a,b):
-    return a==b
+
+    # def login_post():
+    #     user_login = request.form.get('log_name')
+    #     user_password = request.form.get('log_pass')
+    #
+    #     # Ищем пользователя в БД (функция возвращает словарь/кортеж или объект User)
+    #     user = select_user(user_login)
+    #     error = "Неверные данные или пароль"
+    #
+    #     # Проверяем, что пользователь найден и пароль совпадает
+    #     if user and user['password'] == user_password:
+    #         return render_template('profile.html')
+    #     else:
+    #         return render_template('login.html', error=error)
+
 
 if __name__ == '__main__':
     db = Database('localhost', 'root', 'admin', 'academy')
