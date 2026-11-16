@@ -4,7 +4,7 @@ import pymysql.cursors
 class Database:
     def __init__(self, host, user, password, database):
 
-        self.connection = pymysql.connect(host=host, user=user, password=password, db=database)
+        self.connection = pymysql.connect(host=host, user=user, password=password, database=database)
 
 
     def insert_classes(self, places1, places2):
