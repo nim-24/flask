@@ -31,5 +31,5 @@ def search(a,b):
     return a==b
 
 if __name__ == '__main__':
-    db = Database('localhost', 'root', '<admin>', '<academy>')
+    db = Database('localhost', 'root', 'admin', 'academy')
     app.run(host='0.0.0.0', port=8080, debug=True)
