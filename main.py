@@ -1,17 +1,17 @@
 from flask import Flask, request, abort, redirect, url_for, render_template #pip install flask
 from markupsafe import escape
-from database import Database
+from databases import Database
 
-app = Flask(__name__) #все принадлежит фласку
+app = Flask(__name__) 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         login_btn = request.form['login']
-        if login_btn == 1:
+        if login_btn == "1":
             return login_get()
         register_btn = request.form['register']
-        if register_btn == 2:
+        if register_btn == "2":
             return register_get()
     return render_template('index.html')
 
@@ -22,8 +22,8 @@ def register():
         return render_template('register.html')
 
 def register_post():
-    reg_email = request.form['reg_email']
-    reg_password = request.form['reg_pass']
+    reg_email = request.form('reg_email')
+    reg_password = request.form('reg_pass')
     db.insert_users(reg_email, reg_password)
     return render_template('profile.html')
 
@@ -54,21 +54,6 @@ def login_post():
         return redirect(url_for('login'))
 
 
-    # def login_post():
-    #     user_login = request.form.get('log_name')
-    #     user_password = request.form.get('log_pass')
-    #
-    #     # Ищем пользователя в БД (функция возвращает словарь/кортеж или объект User)
-    #     user = select_user(user_login)
-    #     error = "Неверные данные или пароль"
-    #
-    #     # Проверяем, что пользователь найден и пароль совпадает
-    #     if user and user['password'] == user_password:
-    #         return render_template('profile.html')
-    #     else:
-    #         return render_template('login.html', error=error)
-
-
 if __name__ == '__main__':
-    db = Database('localhost', 'root', 'admin', 'academy')
+    db = Database('localhost', 'root', 'root', 'academy')
     app.run(host='0.0.0.0', port=8080, debug=True)
