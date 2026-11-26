@@ -1,0 +1,15 @@
+<html>
+<head>
+    <title>REGISTRATION</title>
+    </head>
+    <body>
+    <form method="post" action="/register">
+        <input type="email" name="reg_email" placeholder="укажите почту как логин" required>
+        <input type="password" name="reg_pass" placeholder="создайте пароль" required>
+        <button type="submit">Зарегистрироваться</button>
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+    </form>
+    </body>
+</html>
